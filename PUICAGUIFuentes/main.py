@@ -41,7 +41,7 @@ class GUI:
         self.label_file.grid(row=0, column=0, pady=10, sticky='e')
 
         # Botón para seleccionar archivo
-        self.btn_browse = ttk.Button(self.main_frame, text="Subir archivo", command=self.browse_file, style='Custom.TButton')
+        self.btn_browse = ttk.Button(self.main_frame, text="Subir archivo", command=self.browse, style='Custom.TButton')
         self.btn_browse.grid(row=0, column=1, pady=10, padx=5, sticky='w')
 
         # Etiqueta para datos de entrada
@@ -49,7 +49,7 @@ class GUI:
         self.label_input.grid(row=1, column=0, columnspan=2, pady=10, sticky='ew')
 
         # Botón para resolver
-        self.btn_solve = ttk.Button(self.main_frame, text="Resolver", style='Custom.TButton')
+        self.btn_solve = ttk.Button(self.main_frame, text="Resolver", style='Custom.TButton', command=self.solver_for_mzn)
         self.btn_solve.grid(row=2, column=0, pady=10, columnspan=2)
 
         # Cuadro de texto para entrada
@@ -99,13 +99,64 @@ class GUI:
         # Establecer el tamaño de la ventana y la posición
         self.root.geometry(f'{width}x{height}+{x}+{y}')
 
-    def browse_file(self):
+    def browse(self):
         # Abre un cuadro de diálogo para seleccionar un archivo de texto (*.txt)
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
         if file_path:
             with open(file_path, 'r') as file:
                 self.textbox.delete(1.0, tk.END)
                 self.textbox.insert(tk.END, file.read())
+    def solver_for_mzn(self):
+        try:
+            input_content = self.textbox.get("1.0", tk.END)
+
+            lines = input_content.strip().split('\n')
+            N = int(lines[0])
+            M = int(lines[1])
+
+            # Definir los nombres de los parámetros
+            param_names = ["n", "m", "CostoFijo", "CapacidadMaxima", "Demanda", "Beneficio"]
+
+            param_lines = []
+            for i, line in enumerate(lines[2:]):
+                values = line.split(', ')
+                param_lines.append(f"{param_names[i]} = [ {', '.join(values)} ];")
+
+            # Crear el contenido DZN
+            dzn_content = f"J = {N};\nK = {M};\n"
+            dzn_content += '\n'.join(param_lines)
+
+            # Obtener el nombre del archivo seleccionado
+            selected_file_name = getattr(self, "selected_file_name", "temp_input")
+            
+            # Guardar el contenido DZN 
+            data_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'DatosPUICA')
+            tmp_dzn_path = os.path.join(data_folder, f"{selected_file_name}.dzn")
+            print(f"Contenido del DZN:\n{dzn_content}")
+            try:
+                with open(tmp_dzn_path, "w") as tmp_dzn_file:
+                    tmp_dzn_file.write(dzn_content)
+            except Exception as e:
+                print(f"Error al guardar el archivo: {e}")
+                return
+
+            tmp_dzn_path = f'"{tmp_dzn_path}"'
+
+            # Ejecutar modelo PUICA.mzn usando HiGHS como solver
+            #Al lado de solutions hay que colocar el modelo PUICA.mzn
+            minizinc_command = f'minizinc --solver coinbc --all-solutions {tmp_dzn_path}'
+            print(f"Ejecutando: {minizinc_command}")
+            result = subprocess.run(minizinc_command, shell=True, capture_output=True, text=True)
+
+            # Mostrar el resultado en el cuadro de texto de resultados
+            self.result_textbox.delete(1.0, tk.END)
+            self.result_textbox.insert(tk.END, result.stdout)
+            if result.stderr:
+                self.result_textbox.insert(tk.END, f"\nError: {result.stderr}")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = GUI(root)
