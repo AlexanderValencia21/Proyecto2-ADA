@@ -227,7 +227,8 @@ class GUI:
                 return
 
             # Ejecutar modelo MiniZinc
-            minizinc_command = f'minizinc --solver coinbc --all-solutions PUICAX.mzn "{tmp_dzn_path}"'
+            minizinc_command = f'minizinc --solver highs --all-solutions PUICAX.mzn "{tmp_dzn_path}"' #HiHGHS SOLVER
+            #minizinc_command = f'minizinc --solver coinbc --all-solutions PUICAX.mzn "{tmp_dzn_path}"' COIN-BC SOLVER
             result = subprocess.run(
                 minizinc_command, shell=True, capture_output=True, text=True)
 
