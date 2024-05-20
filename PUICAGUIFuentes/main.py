@@ -1,6 +1,7 @@
 import tkinter as tk
 import os
 import subprocess
+import time
 from tkinter import filedialog, ttk
 
 
@@ -57,7 +58,7 @@ class GUI:
 
         # Botón para resolver
         self.btn_solve = ttk.Button(
-            self.main_frame, text="Resolver", style='Custom.TButton', command=self.solver_for_mzn)
+            self.main_frame, text="Resolver", style='Custom.TButton', command=self.solve_with_time)
         self.btn_solve.grid(row=2, column=0, pady=10, columnspan=2)
 
         # Cuadro de texto para entrada
@@ -87,6 +88,11 @@ class GUI:
             self.main_frame, command=self.result_textbox.yview)
         scrollbar_result.grid(row=5, column=2, sticky=(tk.N, tk.S))
         self.result_textbox.config(yscrollcommand=scrollbar_result.set)
+
+        # Etiqueta para tiempo de ejecución
+        self.label_time = ttk.Label(
+            self.main_frame, text="", foreground='black')
+        self.label_time.grid(row=6, column=0, columnspan=2, pady=10)
 
         # Configurar colores y fuentes
         for label in [self.label_file, self.label_input, self.label_result]:
@@ -168,7 +174,20 @@ class GUI:
                 tmp_dzn_file.write(dzn_content)
         except Exception as e:
             print(f"Error al generar el archivo DZN: {e}")
-            
+    
+    def solve_with_time(self):
+        start_time = time.time()  # Registra el tiempo de inicio
+
+        # Llama a la función que resuelve el problema
+        self.solver_for_mzn()
+
+        end_time = time.time()  # Registra el tiempo de finalización
+        execution_time = end_time - start_time  # Calcula el tiempo de ejecución
+
+        # Muestra el tiempo de ejecución en la GUI
+        self.label_time.config(
+            text=f"Tiempo de ejecución: {execution_time:.2f} segundos")
+        
     def solver_for_mzn(self):
         try:
             input_content = self.textbox.get("1.0", tk.END)
