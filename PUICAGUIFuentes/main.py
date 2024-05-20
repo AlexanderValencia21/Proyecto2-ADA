@@ -122,6 +122,53 @@ class GUI:
                 self.textbox.delete(1.0, tk.END)
                 self.textbox.insert(tk.END, file.read())
 
+                # Generar y guardar el archivo .dzn
+                self.generate_dzn(file_path)
+    def generate_dzn(self, file_path):
+        try:
+            # Leer el contenido del archivo seleccionado
+            with open(file_path, 'r') as file:
+                input_content = file.readlines()
+
+            # Extraer los datos necesarios del archivo
+            n_clientes = int(input_content[0])
+            n_sitios = int(input_content[1])
+            costo_fijo_sitios = list(map(float, input_content[2].split(',')))
+            capacidad_maxima_sitios = list(
+                map(int, input_content[3].split(',')))
+            demanda_clientes = list(
+                map(float, input_content[4].split(',')))
+            beneficio_por_unidad = [list(map(float, row.split(',')))
+                                    for row in input_content[5:]]
+
+            # Generar el contenido DZN
+            dzn_content = f"n_clientes = {n_clientes};\n"
+            dzn_content += f"n_sitios = {n_sitios};\n"
+            dzn_content += f"costo_fijo_sitios = {costo_fijo_sitios};\n"
+            dzn_content += f"capacidad_maxima_sitios = {capacidad_maxima_sitios};\n"
+            dzn_content += f"demanda_clientes = {demanda_clientes};\n"
+
+            # Generar la representación de la matriz beneficio_por_unidad utilizando array2d
+            dzn_content += "beneficio_por_unidad = \n"
+            dzn_content += "[|" + "\n|".join([",".join(map(str, row))
+                                              for row in beneficio_por_unidad]) + "|];\n"
+
+            # Obtener el nombre del archivo seleccionado
+            self.selected_file_name = os.path.splitext(
+                os.path.basename(file_path))[0]
+
+            # Guardar el contenido DZN en un archivo temporal
+            data_folder = os.path.join(os.path.dirname(
+                os.path.abspath(__file__)), '..', 'DatosPUICA')
+            tmp_dzn_path = os.path.join(
+                data_folder, f"{self.selected_file_name}.dzn")
+            print(f"Guardando DZN en: {tmp_dzn_path}")
+            print(f"Contenido DZN:\n{dzn_content}")
+            with open(tmp_dzn_path, "w") as tmp_dzn_file:
+                tmp_dzn_file.write(dzn_content)
+        except Exception as e:
+            print(f"Error al generar el archivo DZN: {e}")
+            
     def solver_for_mzn(self):
         try:
             input_content = self.textbox.get("1.0", tk.END)
