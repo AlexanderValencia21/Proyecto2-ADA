@@ -4,6 +4,7 @@ Integrantes:
     -Jhon Alexander Valencia Hilamo
     -Kevin Alejandro Velez Agudelo
 
+Video Explicativo: https://www.youtube.com/watch?v=MZjFonTIkQA
 
 Directorios y Archivos entregados:
 - Carpeta DatosPUICA

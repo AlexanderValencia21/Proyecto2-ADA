@@ -5,7 +5,7 @@ El problema a resolver es decidir donde ubicar un cierto
 número de instalaciones de una planta de producción, entre un cierto número de sitios posibles para hacerlo, teniendo en cuenta las necesidades de los clientes, y cierto criterio económico de optimización. Se ha desarrollado un modelo genérico que resuelve el problema PUICA, utilizando el lenguaje de modelado Minizinc, el cual fue puesto a prueba con una serie de instancias diferentes del problema, que buscan probar su correctitud y analizar el comportamiento del mismo haciendo uso de los resultados de prueba obtenidos, en términos de optimización. Asimismo, se ha desarrollado una interfaz gráfica en Python, que facilita la configuración y ejecución del modelo construido, permitiendo visualizar los resultados de manera interactiva.
 
 - [Link al Informe](https://docs.google.com/document/d/1-jwHge9unAaSDajX8AVxS8L4MJ2nIoe4YHUquVh-0qA/edit?usp=sharing)
-- [Link al Video Explicativo de la Interfaz Gráfica]()
+- [Link al Video Explicativo de la Interfaz Gráfica](https://www.youtube.com/watch?v=MZjFonTIkQA)
 
 
 ## Grupo de Trabajo
