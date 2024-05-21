@@ -1,7 +1,7 @@
 
 # Problema de la Ubicación de Instalaciones de Capacidad Acotada (PUICA)
 
-El problema de decidir donde ubicar un cierto
+El problema a resolver es decidir donde ubicar un cierto
 número de instalaciones de una planta de producción, entre un cierto número de sitios posibles para hacerlo, teniendo en cuenta las necesidades de los clientes, y cierto criterio económico de optimización. Se ha desarrollado un modelo genérico que resuelve el problema PUICA, utilizando el lenguaje de modelado Minizinc, el cual fue puesto a prueba con una serie de instancias diferentes del problema, que buscan probar su correctitud y analizar el comportamiento del mismo haciendo uso de los resultados de prueba obtenidos, en términos de optimización. Asimismo, se ha desarrollado una interfaz gráfica en Python, que facilita la configuración y ejecución del modelo construido, permitiendo visualizar los resultados de manera interactiva.
 
 - [Link al Informe](https://docs.google.com/document/d/1-jwHge9unAaSDajX8AVxS8L4MJ2nIoe4YHUquVh-0qA/edit?usp=sharing)
@@ -21,6 +21,7 @@ número de instalaciones de una planta de producción, entre un cierto número d
 La interfaz gráfica fue desarrollada en Python junto a la librería **tkinter**. Como se había mencionado, el modelo de optimización fue creada en la herramienta MiniZinc. En este repositorio se adicionan unas pruebas en formato txt con las que se pueden usar en la interfaz. Se menciona que el rendimiento de la aplicación depende de los recursos de Hardware en donde se ejecute este. 
 
 A continuación se mencionan los requisitos necesarios para ejecutar la aplicación correctamente:
+
 - Instalación de MiniZinc
 - Es necesario identificar que el binario de esta aplicación este alojado en el PATH del sistema operativo. En caso de del sistema operativo Windows se utilizó la ruta 'C:\Program Files\MiniZinc' en las variables de entorno.
 - Tener instalado Python y la librería tkinter.
@@ -29,13 +30,13 @@ A continuación se mencionan los requisitos necesarios para ejecutar la aplicaci
 Infraestructura del Proyecto:
 -
 
-Los direcorios y archivos del proyecto son los siguientes: 
+Los directorios y archivos del proyecto son los siguientes: 
 
 ![Directorio](images/directorio.png)
 
 - Carpeta DatosPUICA: En esta carpeta se alojarán los archivos con formato .dzn necesarios para que el programa se ejecute correctemente. La aplicación genera este tipo de archivos en tiempo de ejecución, por medio de archivos txt. 
 
-- Carpeta MisInstancias: En esta carpeta se encuentran cinco pruebas que el grupo generó para comprobar diferentes parámetros de la aplicación, pueden ser usados por el usuario. También esta la subcarpeta 'InstanciasArbol', en donde se encuentran algunas instancias que se usaron para generar gráficos de árboles con el solver GeCode Gist 6.3.0.
+- Carpeta MisInstancias: En esta carpeta se encuentran cinco pruebas que el grupo generó para comprobar diferentes parámetros de la aplicación, pueden ser usados por el usuario. También en esta se encuentra la subcarpeta 'InstanciasArbol', en donde se encuentran algunas instancias que se usaron para generar gráficos de árboles con el solver GeCode Gist 6.3.0.
 
 - Carpeta PUICAGUIFuentes: En esta carpeta se encuentra el archivo main.py que ejecuta la apliación y la GUI. Aqui también se encuentra una carpeta denominada 'soluciones' en donde se generará un archivo 'soluciones.txt' en donde estarán las soluciones de la prueba que se ejecute en la aplicación.
 
@@ -56,13 +57,14 @@ Para la ejecución de esta aplicación, se debe descargar o clonar este reposito
 ```
 
 Después, se debe ejecutar el archivo main.py, con el siguiente comando:
+
 ```bash
   pyhton main.py
 ```
 
 Con esto se abrirá la GUI de la aplicación, en este verá varias secciones. La primera sección es donde se debe seleccionar una prueba, con el botón *subir archivo* se abrirá el explorador de archivos del sistema operativo, se debe seleccionar una prueba en formato .txt para probar la aplicación, puede probar las pruebas anexadas en la carpeta **MisInstancias**. Por consiguiente, si el archivo es aceptado se llenará el primer campo *Datos de Entrada* donde se mostrará la información del documento txt seleccionada. El siguiente paso, es presionar el botón *Resolver*. La aplicación generará un archivo dzn con el nombre del archivo seleccionado. Los archivos dzn son aquellos que necesita el modelo para entender las variables de entrada y llevar a cabo la ejecución correctamente. Como pasos finales de la aplicación, se mostrará el contenido del archivo dzn generado por medio de la consola, tal como se puede observar en la siguiente imagen de ejemplo:
 
-![Imagen de Ejemplo 1](images/consola1.png)
+![Imagen de Ejemplo 1](images/consola.png)
 
 En el segundo campo de *Resultados de Prueba* se visualiazará los resultados arrojados por el modelo. La aplicación sobreescribirá estos resultados en el archivo *soluciones.txt* que se encuentra en la carpeta *soluciones* para que estos puedan ser manipulados, si se desea. Para entender de mejor manera el funcionamiento de la aplicación se recomienda ver el **video explicativo** de la aplicación. Se anexa una imagen sobre la GUI.
 
