@@ -238,6 +238,16 @@ class GUI:
             if result.stderr:
                 self.result_textbox.insert(tk.END, f"\nError: {result.stderr}")
 
+            # Guardar los resultados en soluciones/soluciones.txt
+            solutions_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'soluciones')
+            os.makedirs(solutions_folder, exist_ok=True)
+            solutions_file_path = os.path.join(solutions_folder, 'soluciones.txt')
+            with open(solutions_file_path, 'a') as solutions_file:
+                solutions_file.write(f"Resultados para {selected_file_name}:\n")
+                solutions_file.write(result.stdout)
+                solutions_file.write("\n")
+
+
         except Exception as e:
             print(f"Error: {e}")
 
