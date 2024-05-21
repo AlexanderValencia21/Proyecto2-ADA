@@ -72,6 +72,11 @@ En el segundo campo de *Resultados de Prueba* se visualiazará los resultados ar
 
 **NOTA:** La herramienta puede generar muchos resultados, el único resultado que es importante es el último generado.  
 
+Para cambiar el Solver de la aplicación, se puede cambiar manualmente entre el bloque de las líneas 229 y 233 del archivo main.py. 
+Se destacá que en esta aplicación se usaron los solvers COIN-BC y HiHGS. 
+
+![Imagen de Ejemplo 2](images/solver.png)
+
 
 ## Conclusiones
 
