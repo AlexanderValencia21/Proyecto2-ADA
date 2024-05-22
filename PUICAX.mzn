@@ -6,7 +6,7 @@ array[1..n_clientes] of float: demanda_clientes;
 array[1..n_clientes, 1..n_sitios] of float: beneficio_por_unidad;
 
 
-array[1..n_clientes, 1..n_sitios] of var float: productos;
+array[1..n_clientes, 1..n_sitios] of var 0.0..100000: productos;
 
 array[1..n_sitios] of var bool: instalaciones;
 

@@ -1,0 +1,9 @@
+int: n_clientes = 3;
+int: n_sitios = 3;
+array[1..n_sitios] of float: costo_fijo_sitios = [2,2,2];
+array[1..n_sitios] of int: capacidad_maxima_sitios = [6,6,6];
+array[1..n_clientes] of float: demanda_clientes = [1.5,2.0,1.0];
+array[1..n_clientes, 1..n_sitios] of float: beneficio_por_unidad = 
+[|1.0,4.5,1.0
+|1.5,4.5,1.5
+|1.5,4.5,1.5|];
