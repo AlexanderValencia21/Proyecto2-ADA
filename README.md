@@ -80,3 +80,7 @@ Se destacá que en esta aplicación se usaron los solvers COIN-BC y HiHGS.
 
 ## Conclusiones
 
+
+Como respuesta a lo solicitado para este proyecto, hemos desarrollado satisfactoriamente un modelo y un programa que incluye una interfaz gráfica, el cual da solución al problema de Ubicación de Instalaciones con Asignación de Clientes (PUICA) de manera adecuada e interactiva. En base a los resultados de las pruebas obtenidos y presentados previamente, podemos asegurar que nuestra representa una solución para la resolución de este problema, proporcionando resultados precisos y consistentes.
+El uso de diferentes solvers para la prueba de nuestro modelo, ha resaltado la importancia de seleccionar el solver adecuado en función de las características específicas del problema.
+
